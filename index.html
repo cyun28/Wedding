@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Wedding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600;1,700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --water:#BFE0E3;
+    --water-dk:#8FBFC4;
+    --sand:#F1E9D8;
+    --ink:#3B463F;
+    --paper:#FAF7F0;
+    --card:#FFFFFF;
+    --muted:#8A9490;
+    --line:#E9E2D2;
+    --shadow:0 4px 16px rgba(143,191,196,0.16);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:linear-gradient(160deg,#E4F1F1 0%, #F3ECDD 55%, #F1E9D8 100%);
+    font-family:'Noto Sans TC', sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .app-shell{
+    width:100%;
+    max-width:460px;
+    min-height:100vh;
+    background:var(--paper);
+    position:relative;
+    box-shadow:0 0 60px rgba(0,0,0,0.10);
+    display:flex;
+    flex-direction:column;
+  }
+  /* ---------- HERO ---------- */
+  .hero{
+    background:linear-gradient(120deg, #DCEEEF 0%, #EDF3E9 60%, #F3ECDC 100%);
+    color:#3B463F;
+    padding:30px 22px 24px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-title{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:38px;
+    margin:0 0 2px;
+    letter-spacing:1px;
+    position:relative;
+    color:#4A5A52;
+    line-height:1.15;
+  }
+  .hero-label{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    letter-spacing:4px;
+    font-size:20px;
+    margin:0 0 10px;
+    display:flex;
+  }
+  .wave-letter{
+    display:inline-block;
+    animation:waveBounce 1.8s ease-in-out infinite;
+  }
+  @keyframes waveBounce{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-5px); }
+  }
+  .venue-badge{
+    display:inline-block;
+    font-size:12.5px;
+    color:#4A5A52;
+    background:linear-gradient(160deg, rgba(255,255,255,0.9), rgba(255,255,255,0.55));
+    border:1px solid rgba(255,255,255,0.9);
+    border-radius:20px;
+    padding:6px 16px;
+    margin-top:2px;
+    position:relative;
+    box-shadow: 0 3px 6px rgba(143,191,196,0.35), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -2px 3px rgba(143,191,196,0.25);
+  }
+  .hero-sub{
+    font-size:12.5px;
+    color:#6E7C74;
+    margin:0;
+    position:relative;
+  }
+  .hero-stats{
+    display:flex;
+    gap:10px;
+    position:relative;
+    margin-top:20px;
+  }
+  .hero-stat{
+    flex:1;
+    background:rgba(255,255,255,0.6);
+    border:1px solid rgba(255,255,255,0.8);
+    border-radius:14px;
+    padding:10px 8px;
+    text-align:center;
+    backdrop-filter:blur(2px);
+  }
+  .hero-stat .num{
+    font-family:'Baloo 2',sans-serif;
+    font-size:19px;
+    font-weight:700;
+    display:block;
+    color:#4A5A52;
+  }
+  .hero-stat .lbl{
+    font-size:10.5px;
+    color:#7C8B83;
+    margin-top:2px;
+    display:block;
+  }
+  .flip-card{
+    position:relative;
+    perspective:500px;
+    border-bottom-right-radius:2px !important;
+  }
+  .flip-card::after{
+    content:"";
+    position:absolute;
+    bottom:0; right:0;
+    width:0; height:0;
+    border-style:solid;
+    border-width:0 0 13px 13px;
+    border-color:transparent transparent rgba(255,255,255,0.95) transparent;
+    box-shadow:-1px -1px 3px rgba(74,90,82,0.25);
+    border-bottom-right-radius:3px;
+  }
+  .flip-card-inner{
+    transform-origin:top center;
+    animation:flipReveal 0.9s ease-out;
+  }
+  @keyframes flipReveal{
+    0%{ transform:rotateX(-95deg); opacity:0; }
+    60%{ opacity:1; }
+    100%{ transform:rotateX(0deg); opacity:1; }
+  }
+  /* ---------- TAB CONTENT ---------- */
+  .content{
+    flex:1;
+    padding:18px 16px 100px;
+  }
+  .panel{display:none;}
+  .panel.active{display:block;}
+  /* ---------- CARD (ticket) ---------- */
+  .ticket{
+    background:var(--card);
+    border-radius:16px;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    padding:14px 16px;
+    margin-bottom:12px;
+  }
+  .ticket-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+  }
+  .ticket-name{font-weight:700;font-size:14.5px;color:var(--ink);}
+  .ticket-dates{font-size:11.5px;color:var(--muted);margin-top:2px;}
+  .status-pill{
+    font-size:11px;
+    padding:3px 10px;
+    border-radius:20px;
+    white-space:nowrap;
+    font-weight:500;
+  }
+  .status-0{background:#EEF2EF;color:var(--muted);}
+  .status-1{background:#F5E9D2;color:#A57C2E;}
+  .status-2{background:#DCE9EA;color:#3E767C;}
+  .status-3{background:var(--water-dk);color:#fff;}
+  .check-pop{
+    display:inline-block;
+    opacity:0;
+    transform:scale(0);
+  }
+  .check-pop.play{
+    animation:checkPop 0.5s cubic-bezier(.34,1.56,.64,1) forwards;
+  }
+  @keyframes checkPop{
+    0%{ transform:scale(0); opacity:0; }
+    60%{ transform:scale(1.35); opacity:1; }
+    100%{ transform:scale(1); opacity:1; }
+  }
+  .progress-track{height:7px;background:var(--line);border-radius:6px;margin-top:10px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--water-dk),var(--sand));border-radius:6px;}
+  .ticket-meta{font-size:11.5px;color:var(--muted);margin-top:8px;}
+  .task-group-title{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--water-dk);
+    margin:22px 0 10px;
+    padding-left:2px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .task-group-title:first-child{margin-top:0;}
+  .task-group-title .tag{
+    font-family:'Noto Sans TC',sans-serif;
+    font-weight:500;
+    font-size:11px;
+    color:var(--muted);
+  }
+  /* ---------- overall progress ---------- */
+  .overall-box{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px 16px;
+    margin-bottom:16px;
+    box-shadow:var(--shadow);
+  }
+  .overall-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+  .overall-top .big{font-family:'Baloo 2',sans-serif;font-size:26px;font-weight:800;color:var(--water-dk);}
+  .overall-top .cap{font-size:12px;color:var(--muted);}
+  /* ---------- expenses ---------- */
+  .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
+  .stat-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center;}
+  .stat-card .v{font-family:'Baloo 2',sans-serif;font-size:18px;font-weight:700;color:var(--water-dk);display:block;}
+  .stat-card .l{font-size:11px;color:var(--muted);margin-top:2px;display:block;}
+  .exp-item{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:10px;box-shadow:var(--shadow);}
+  .exp-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px;}
+  .exp-head .name{font-weight:700;font-size:14px;}
+  .exp-head .total{font-weight:700;font-size:14px;color:var(--water-dk);white-space:nowrap;}
+  .exp-sub{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center;}
+  .payer-badge{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500;}
+  .payer-YUN{background:#FFE3EC;color:#B3325F;}
+  .payer-WEI{background:#DCEBFB;color:#1F5FA6;}
+  .payer-BOSS{background:#E6F4D9;color:#4F7A24;}
+  .payer-AMY{background:#F3E4FB;color:#7A3EA6;}
+  .payer-TBD{background:#EEF2EF;color:#8A9490;}
+  .money-line{font-size:12px;color:var(--muted);margin-top:6px;}
+  .money-line b{color:var(--ink);}
+  .paid-tag{font-size:10.5px;padding:2px 7px;border-radius:10px;margin-left:6px;}
+  .paid-yes{background:#DCE9EA;color:#3E767C;}
+  .paid-no{background:#F5E9D2;color:#A57C2E;}
+  /* ---------- vendors ---------- */
+  .vendor-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow);}
+  .vendor-cat{display:inline-block;font-size:11px;color:#3E5A52;background:linear-gradient(90deg,var(--water),#EAF3EC);font-weight:700;letter-spacing:0.5px;padding:3px 10px;border-radius:20px;margin-bottom:8px;}
+  .vendor-name{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:16px;margin:4px 0 8px;}
+  .vendor-list{margin:0;padding-left:18px;font-size:12.5px;color:var(--ink);line-height:1.8;}
+  .vendor-list li{margin-bottom:2px;}
+  .vendor-ig{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:12.5px;color:#fff;text-decoration:none;font-weight:600;background:linear-gradient(90deg,#8A6FD8,#D06B9C);padding:6px 14px;border-radius:20px;}
+  .empty-hint{font-size:12px;color:var(--muted);padding:10px 4px 4px;}
+  /* ---------- schedule ---------- */
+  .schedule-block{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow);}
+  .schedule-head{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;}
+  .schedule-period{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:22px;color:var(--water-dk);}
+  .schedule-title{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:16px;color:var(--ink);}
+  .schedule-items{margin:0;padding-left:18px;font-size:12.5px;color:var(--muted);line-height:1.9;}
+  .schedule-items li{margin-bottom:2px;}
+  /* ---------- bottom tabs ---------- */
+  .tabbar{position:sticky;bottom:0;left:0;right:0;display:flex;background:#FFFFFF;border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom));margin-top:auto;}
+  .tabbtn{flex:1;background:none;border:none;color:var(--muted);font-family:'Noto Sans TC',sans-serif;font-size:11px;padding:8px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;}
+  .tabbtn .mark{
+    width:auto;height:auto;
+    border:none;
+    line-height:1;
+    font-size:22px;
+    color:#D8CDBB;
+  }
+  .tabbtn .mark::before{
+    content:"♥";
+  }
+  .tabbtn.active{color:var(--water-dk);font-weight:700;}
+  .tabbtn.active .mark{color:var(--water-dk);border-color:transparent;background:none;}
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="hero">
+    <h1 class="hero-title">Wei &amp; Yun</h1>
+    <p class="hero-label" id="waveLabel"></p>
+    <div class="venue-badge">苗栗 · 尚順君樂飯店 星輝廳</div>
+    <div class="hero-stats">
+      <div class="hero-stat flip-card"><div class="flip-card-inner"><span class="num" id="countdownNum">—</span><span class="lbl">倒數天數</span></div></div>
+      <div class="hero-stat"><span class="num" id="progressPct">—</span><span class="lbl">整體進度</span></div>
+      <div class="hero-stat"><span class="num" id="budgetLeft">—</span><span class="lbl">預算餘額(萬)</span></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="panel active" id="panel-progress">
+      <div class="overall-box">
+        <div class="overall-top">
+          <span class="big" id="overallBig">0%</span>
+          <span class="cap" id="overallCap">0 / 0 項已完成</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="overallFill" style="width:0%"></div></div>
+      </div>
+      <div id="taskList"></div>
+    </div>
+
+    <div class="panel" id="panel-expense">
+      <div class="stat-grid">
+        <div class="stat-card"><span class="v" id="expTotal">-</span><span class="l">總支出估算</span></div>
+        <div class="stat-card"><span class="v" id="expPaid">-</span><span class="l">已付金額</span></div>
+      </div>
+      <div class="stat-grid" id="payerStatGrid"></div>
+      <div id="expenseList" style="margin-top:6px;"></div>
+    </div>
+
+    <div class="panel" id="panel-vendor">
+      <div id="vendorList" style="margin-top:6px;"></div>
+    </div>
+
+    <div class="panel" id="panel-schedule">
+      <div id="scheduleRoot"></div>
+    </div>
+
+  </div>
+
+  <div class="tabbar">
+    <button class="tabbtn active" data-tab="progress"><span class="mark"></span>進度</button>
+    <button class="tabbtn" data-tab="expense"><span class="mark"></span>支出</button>
+    <button class="tabbtn" data-tab="vendor"><span class="mark"></span>廠商</button>
+    <button class="tabbtn" data-tab="schedule"><span class="mark"></span>流程</button>
+  </div>
+</div>
+
+<script>
+const WEDDING_DATE = new Date('2027-06-12T00:00:00');
+const STATUS_LABEL = ['未開始','洽談中','已確認','已完成'];
+const WEIGHTS = [0,50,80,100];
+
+const TASKS = [
+  {group:'登記', name:'戶政登記', start:'2026年10月', end:'2026年10月', status:0, actual:''},
+  {group:'登記', name:'客製化書約', start:'', end:'', status:0, actual:''},
+
+  {group:'婚宴', name:'場地簽約（星輝廳）', start:'2026年6月', end:'2026年7月', status:3, actual:'2026/5/24'},
+  {group:'婚宴', name:'婚顧簽約', start:'2026年8月', end:'2026年9月', status:3, actual:'2026/6/16'},
+  {group:'婚宴', name:'新秘簽約', start:'2026年9月', end:'2027年1月', status:3, actual:'2026/5/27'},
+  {group:'婚宴', name:'婚攝簽約', start:'2026年10月', end:'2026年11月', status:3, actual:'2026/5/28'},
+  {group:'婚宴', name:'婚錄簽約', start:'2026年10月', end:'2026年11月', status:3, actual:'2026/5/28'},
+  {group:'婚宴', name:'主持人簽約', start:'2026年11月', end:'2027年3月', status:3, actual:'2026/6/16'},
+  {group:'婚宴', name:'婚禮樂團簽約（鍵盤＋小提琴＋主唱）', start:'2027年2月', end:'2027年4月', status:3, actual:'2026/6/16'},
+  {group:'婚宴', name:'婚禮助理簽約', start:'2027年2月', end:'2027年4月', status:3, actual:'2026/6/16'},
+  {group:'婚宴', name:'音響簽約', start:'2027年2月', end:'2027年4月', status:3, actual:'2026/6/11'},
+  {group:'婚宴', name:'婚紗照拍攝', start:'2026年10月', end:'2026年11月', status:0, actual:''},
+  {group:'婚宴', name:'喜餅下單', start:'2026年10月', end:'2027年1月', status:0, actual:''},
+  {group:'婚宴', name:'喜帖設計印刷', start:'2026年12月', end:'2027年1月', status:0, actual:''},
+  {group:'婚宴', name:'場地試菜', start:'2027年5月', end:'2027年5月', status:0, actual:''},
+  {group:'婚宴', name:'花藝佈置簽約', start:'2026年12月', end:'2027年4月', status:0, actual:''},
+  {group:'婚宴', name:'婚禮小物準備', start:'2027年1月', end:'2027年5月', status:0, actual:''},
+  {group:'婚宴', name:'婚戒挑選', start:'2026年12月', end:'2026年12月', status:0, actual:''},
+  {group:'婚宴', name:'婚禮影片製作', start:'2027年3月', end:'2027年4月', status:0, actual:''},
+  {group:'婚宴', name:'場地最終確認會議', start:'2027年5月', end:'2027年5月', status:0, actual:''},
+
+  {group:'蜜月', name:'蜜月規劃', start:'2026年12月', end:'2027年1月', status:0, actual:''}
+];
+
+const EXPENSES = [
+  {name:'場地', deposit:46000, depositPayer:'BOSS', depositPaid:true, final:0, finalPayer:'TBD', finalPaid:false},
+  {name:'新秘', deposit:8000, depositPayer:'YUN', depositPaid:true, final:18000, finalPayer:'TBD', finalPaid:false},
+  {name:'婚攝', deposit:11400, depositPayer:'YUN', depositPaid:true, final:26600, finalPayer:'TBD', finalPaid:false},
+  {name:'婚錄', deposit:10200, depositPayer:'YUN', depositPaid:true, final:23800, finalPayer:'TBD', finalPaid:false},
+  {name:'婚顧＋主持＋樂團＋助理', deposit:20400, depositPayer:'WEI', depositPaid:true, final:47600, finalPayer:'TBD', finalPaid:false},
+  {name:'音響', deposit:0, depositPayer:'TBD', depositPaid:false, final:15000, finalPayer:'TBD', finalPaid:false},
+  {name:'婚紗照＋禮服', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {name:'花藝佈置', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {name:'喜餅', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {name:'喜帖', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {name:'婚禮小物', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {name:'戶政登記', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {name:'客製化書約', deposit:5115, depositPayer:'YUN', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {name:'婚戒', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {name:'婚禮影片', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {name:'蜜月', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {name:'預備金', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false}
+];
+
+const VENDORS = [
+  {
+    cat:'婚攝',
+    name:'Fans Photo Studio',
+    items:[
+      '交件時程：3個月內完成',
+      '全部照片電子檔（含調色檔）',
+      '雲端交件，保留一年',
+      '32G隨身碟一份（自選精修10張）',
+      '搶先看：婚禮後7日內提供60-80張精選及謝客照'
+    ],
+    ig:'https://www.instagram.com/fans_photostudio/'
+  },
+  {
+    cat:'婚錄',
+    name:'FNS Walker',
+    items:[
+      '流程長片（完整婚禮紀錄）',
+      '微電影精華短片',
+      '贈送USB隨身碟一份'
+    ],
+    ig:'https://www.instagram.com/fns_walker/'
+  }
+];
+
+const SCHEDULE_DATA = [
+  {period:'上午', title:'文定', items:['細項流程尚未確定，籌備中']},
+  {period:'中午', title:'婚宴', items:['細項流程尚未確定，籌備中']}
+];
+
+function renderWaveLabel(){
+  const text = 'WEDDING 💍';
+  const colors = ['#4FADA3','#5BB3B9','#6FC0C5','#87CDD1','#A0D9DC','#B9E4E6','#CDEDEF'];
+  const el = document.getElementById('waveLabel');
+  el.innerHTML = '';
+  let letterIndex = 0;
+  [...text].forEach(ch=>{
+    const span = document.createElement('span');
+    if(ch === ' '){
+      span.style.display='inline-block';
+      span.style.width='6px';
+      span.textContent='';
+    }else{
+      span.className = 'wave-letter';
+      span.textContent = ch;
+      if(ch !== '💍'){
+        span.style.color = colors[letterIndex % colors.length];
+        span.style.animationDelay = (letterIndex*0.09)+'s';
+        letterIndex++;
+      }else{
+        span.style.animationDelay = (letterIndex*0.09)+'s';
+      }
+    }
+    el.appendChild(span);
+  });
+}
+
+function fmt(n){ return Math.round(n||0).toLocaleString('zh-TW'); }
+
+function animateCount(el, endVal, duration=1000, suffix=''){
+  if(!el) return;
+  const start = performance.now();
+  function tick(now){
+    const progress = Math.min((now-start)/duration, 1);
+    const eased = 1 - Math.pow(1-progress, 3);
+    const val = Math.round(endVal*eased);
+    el.textContent = val + suffix;
+    if(progress<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+function animateWidth(el, endPercent, duration=1000){
+  if(!el) return;
+  const start = performance.now();
+  function tick(now){
+    const progress = Math.min((now-start)/duration, 1);
+    const eased = 1 - Math.pow(1-progress, 3);
+    const val = endPercent*eased;
+    el.style.width = val + '%';
+    if(progress<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+function updateCountdown(){
+  const now = new Date();
+  const diff = Math.ceil((WEDDING_DATE - now)/(1000*60*60*24));
+  animateCount(document.getElementById('countdownNum'), diff > 0 ? diff : 0, 3000);
+}
+
+function taskSortValue(t){
+  if(t.actual){
+    const parts = t.actual.split('/').map(Number);
+    return new Date(parts[0], parts[1]-1, parts[2]).getTime();
+  }
+  const m = t.start.match(/(\d+)年(\d+)月/);
+  if(m){
+    return new Date(parseInt(m[1]), parseInt(m[2])-1, 1).getTime();
+  }
+  return 0;
+}
+
+function renderTasks(){
+  const list = document.getElementById('taskList');
+  list.innerHTML = '';
+  let sum = 0;
+  let checkCounter = 0;
+  const groups = ['登記','婚宴','蜜月'];
+  groups.forEach(g=>{
+    const items = TASKS.filter(t=>t.group===g).slice().sort((a,b)=>taskSortValue(a)-taskSortValue(b));
+    if(!items.length) return;
+    const doneInGroup = items.filter(t=>t.status===3).length;
+    const header = document.createElement('div');
+    header.className = 'task-group-title';
+    header.innerHTML = `${g} <span class="tag">${doneInGroup}/${items.length}</span>`;
+    list.appendChild(header);
+    items.forEach(t=>{
+      sum += WEIGHTS[t.status];
+      const div = document.createElement('div');
+      div.className = 'ticket';
+      const dateLine = (t.status===3 || !t.start) ? '' : `<div class="ticket-dates">預計 ${t.start} － ${t.end}</div>`;
+      let checkMark = '';
+      if(t.status===3){
+        checkMark = `<span class="check-pop" style="animation-delay:${Math.min(checkCounter*70,600)}ms">✓</span> `;
+        checkCounter++;
+      }
+      div.innerHTML = `
+        <div class="ticket-row">
+          <div>
+            <div class="ticket-name">${t.name}</div>
+            ${dateLine}
+          </div>
+          <span class="status-pill status-${t.status}">${checkMark}${STATUS_LABEL[t.status]}</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:${WEIGHTS[t.status]}%"></div></div>
+        ${t.actual?`<div class="ticket-meta">實際完成日：${t.actual}</div>`:''}
+      `;
+      list.appendChild(div);
+    });
+  });
+  const overallPct = TASKS.length ? Math.round(sum/TASKS.length) : 0;
+  animateCount(document.getElementById('overallBig'), overallPct, 3000, '%');
+  animateWidth(document.getElementById('overallFill'), overallPct, 3000);
+  const doneCount = TASKS.filter(t=>t.status===3).length;
+  document.getElementById('overallCap').textContent = `${doneCount} / ${TASKS.length} 項已完成`;
+  animateCount(document.getElementById('progressPct'), overallPct, 3000, '%');
+}
+
+function renderExpenses(){
+  const list = document.getElementById('expenseList');
+  list.innerHTML = '';
+  let total=0, paid=0;
+  const payers = ['YUN','WEI','BOSS','AMY'];
+  const byPayer = {}; payers.forEach(p=>byPayer[p]=0);
+
+  EXPENSES.forEach(ex=>{
+    const t = (ex.deposit||0)+(ex.final||0);
+    total += t;
+    if(ex.depositPaid) paid += (ex.deposit||0);
+    if(ex.finalPaid) paid += (ex.final||0);
+    if(byPayer[ex.depositPayer]!==undefined) byPayer[ex.depositPayer]+=(ex.deposit||0);
+    if(byPayer[ex.finalPayer]!==undefined) byPayer[ex.finalPayer]+=(ex.final||0);
+
+    const badge = (p)=> p==='TBD' ? `<span class="payer-badge payer-TBD">待定</span>` : `<span class="payer-badge payer-${p}">${p}</span>`;
+
+    let rows = '';
+    if(ex.deposit>0){
+      rows += `<div class="money-line">訂金 <b>NT$${fmt(ex.deposit)}</b> ${badge(ex.depositPayer)}<span class="paid-tag ${ex.depositPaid?'paid-yes':'paid-no'}">${ex.depositPaid?'已付':'未付'}</span></div>`;
+    }
+    if(ex.final>0){
+      rows += `<div class="money-line">尾款 <b>NT$${fmt(ex.final)}</b> ${badge(ex.finalPayer)}<span class="paid-tag ${ex.finalPaid?'paid-yes':'paid-no'}">${ex.finalPaid?'已付':'婚禮當天'}</span></div>`;
+    }
+    if(ex.deposit===0 && ex.final===0){
+      rows = `<div class="money-line">尚未提供金額</div>`;
+    }
+
+    const div = document.createElement('div');
+    div.className = 'exp-item';
+    div.innerHTML = `
+      <div class="exp-head">
+        <span class="name">${ex.name}</span>
+        <span class="total">NT$${fmt(t)}</span>
+      </div>
+      ${rows}
+    `;
+    list.appendChild(div);
+  });
+
+  document.getElementById('expTotal').textContent = 'NT$'+fmt(total);
+  document.getElementById('expPaid').textContent = 'NT$'+fmt(paid);
+  document.getElementById('budgetLeft').textContent = ((800000-total)/10000).toFixed(1);
+  document.getElementById('payerStatGrid').innerHTML = payers.map(p=>`<div class="stat-card"><span class="v">NT$${fmt(byPayer[p])}</span><span class="l">${p} 支出</span></div>`).join('');
+}
+
+function renderVendors(){
+  const list = document.getElementById('vendorList');
+  list.innerHTML = '';
+  if(!VENDORS.length){
+    list.innerHTML = '<p class="empty-hint">尚未提供廠商資料。</p>';
+    return;
+  }
+  VENDORS.forEach(v=>{
+    const div = document.createElement('div');
+    div.className = 'vendor-card';
+    div.innerHTML = `
+      <span class="vendor-cat">${v.cat}</span>
+      <div class="vendor-name">${v.name}</div>
+      <ul class="vendor-list">${v.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+      ${v.ig?`<a class="vendor-ig" href="${v.ig}" target="_blank" rel="noopener">📷 Instagram</a>`:''}
+    `;
+    list.appendChild(div);
+  });
+}
+
+function renderSchedule(){
+  const root = document.getElementById('scheduleRoot');
+  root.innerHTML = '';
+  SCHEDULE_DATA.forEach(block=>{
+    const wrap = document.createElement('div');
+    wrap.className = 'schedule-block';
+    wrap.innerHTML = `
+      <div class="schedule-head">
+        <span class="schedule-period">${block.period}</span>
+        <span class="schedule-title">${block.title}</span>
+      </div>
+      <ul class="schedule-items">${block.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+    `;
+    root.appendChild(wrap);
+  });
+}
+
+document.querySelectorAll('.tabbtn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+  });
+});
+
+updateCountdown();
+renderWaveLabel();
+renderTasks();
+renderExpenses();
+renderVendors();
+renderSchedule();
+initCheckPopObserver();
+
+function initCheckPopObserver(){
+  const marks = document.querySelectorAll('.check-pop');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('play');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.6});
+  marks.forEach(m=>obs.observe(m));
+}
+</script>
+</body>
+</html>
