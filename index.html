@@ -156,11 +156,11 @@
   /* ---------- CARD (ticket) ---------- */
   .ticket{
     background:var(--card);
-    border-radius:16px;
+    border-radius:14px;
     border:1px solid var(--line);
     box-shadow:var(--shadow);
-    padding:14px 16px;
-    margin-bottom:12px;
+    padding:10px 14px;
+    margin-bottom:8px;
   }
   .ticket-row{
     display:flex;
@@ -227,16 +227,96 @@
   .overall-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
   .overall-top .big{font-family:'Baloo 2',sans-serif;font-size:26px;font-weight:800;color:var(--water-dk);}
   .overall-top .cap{font-size:12px;color:var(--muted);}
+  .category-mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;}
+  .category-mini{background:#F1FAF9;border-radius:10px;padding:7px 4px;text-align:center;}
+  .category-mini .pct{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:14px;color:var(--water-dk);display:block;}
+  .category-mini .lbl{font-size:9.5px;color:var(--muted);margin-top:1px;display:block;}
   /* ---------- expenses ---------- */
   .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
   .stat-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center;}
   .stat-card .v{font-family:'Baloo 2',sans-serif;font-size:18px;font-weight:700;color:var(--water-dk);display:block;}
   .stat-card .l{font-size:11px;color:var(--muted);margin-top:2px;display:block;}
-  .exp-item{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:10px;box-shadow:var(--shadow);}
-  .exp-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px;}
-  .exp-head .name{font-weight:700;font-size:14px;}
-  .exp-head .total{font-weight:700;font-size:14px;color:var(--water-dk);white-space:nowrap;}
-  .exp-sub{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center;}
+  .chart-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px 16px 16px;
+    margin-bottom:16px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+  }
+  .gauge{
+    width:220px;
+    height:112px;
+    position:relative;
+    overflow:hidden;
+    flex-shrink:0;
+  }
+  .gauge-arc{
+    position:absolute;
+    top:0; left:0;
+    width:220px; height:220px;
+    border-radius:50%;
+  }
+  .gauge-hole{
+    position:absolute;
+    top:26px; left:26px;
+    width:168px; height:168px;
+    border-radius:50%;
+    background:var(--card);
+    box-shadow:inset 0 2px 6px rgba(74,90,82,0.08);
+  }
+  .gauge-center{
+    position:absolute;
+    bottom:2px; left:0; right:0;
+    text-align:center;
+  }
+  .gauge-center .v{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:19px;color:var(--water-dk);display:block;line-height:1.1;}
+  .gauge-center .l{font-size:10px;color:var(--muted);letter-spacing:1px;}
+  .legend{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px 12px;
+  }
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink);}
+  .legend-swatch{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
+  .legend-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .legend-pct{color:var(--muted);font-weight:600;font-size:10.5px;}
+  .payer-chips{display:flex;gap:6px;margin-bottom:16px;}
+  .payer-chip{flex:1;border-radius:12px;padding:7px 4px;text-align:center;min-width:0;}
+  .payer-chip .pname{font-size:10px;font-weight:700;display:block;letter-spacing:0.5px;}
+  .payer-chip .pamount{font-size:11.5px;font-weight:700;display:block;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .chip-YUN{background:#FFE3EC;color:#B3325F;}
+  .chip-WEI{background:#DCEBFB;color:#1F5FA6;}
+  .chip-BOSS{background:#E6F4D9;color:#4F7A24;}
+  .chip-AMY{background:#F3E4FB;color:#7A3EA6;}
+  .expense-group{margin-bottom:16px;}
+  .expense-group-title{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--water-dk);
+    margin:0 0 8px 2px;
+  }
+  .expense-rows{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .expense-row{padding:10px 14px;border-bottom:1px solid var(--line);}
+  .expense-row:last-child{border-bottom:none;}
+  .expense-row-top{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+  .expense-row-top .name{font-weight:600;font-size:13px;}
+  .expense-row-top .total{font-weight:700;font-size:13px;color:var(--water-dk);white-space:nowrap;}
+  .expense-row-detail{font-size:10.5px;color:var(--muted);margin-top:4px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+  .expense-row-detail .payer-badge{font-size:10px;padding:2px 7px;}
+  .expense-row-detail .paid-tag{font-size:10px;padding:1px 6px;border-radius:8px;}
   .payer-badge{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500;}
   .payer-YUN{background:#FFE3EC;color:#B3325F;}
   .payer-WEI{background:#DCEBFB;color:#1F5FA6;}
@@ -303,6 +383,7 @@
           <span class="cap" id="overallCap">0 / 0 項已完成</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="overallFill" style="width:0%"></div></div>
+        <div class="category-mini-grid" id="categoryMiniGrid"></div>
       </div>
       <div id="taskList"></div>
     </div>
@@ -312,7 +393,15 @@
         <div class="stat-card"><span class="v" id="expTotal">-</span><span class="l">總支出估算</span></div>
         <div class="stat-card"><span class="v" id="expPaid">-</span><span class="l">已付金額</span></div>
       </div>
-      <div class="stat-grid" id="payerStatGrid"></div>
+      <div class="payer-chips" id="payerStatGrid"></div>
+      <div class="chart-card">
+        <div class="gauge">
+          <div class="gauge-arc" id="gaugeArc"></div>
+          <div class="gauge-hole"></div>
+          <div class="gauge-center"><span class="v" id="gaugeTotal">-</span><span class="l">總支出</span></div>
+        </div>
+        <div class="legend" id="donutLegend"></div>
+      </div>
       <div id="expenseList" style="margin-top:6px;"></div>
     </div>
 
@@ -366,23 +455,23 @@ const TASKS = [
 ];
 
 const EXPENSES = [
-  {name:'場地', deposit:46000, depositPayer:'BOSS', depositPaid:true, final:0, finalPayer:'TBD', finalPaid:false},
-  {name:'新秘', deposit:8000, depositPayer:'YUN', depositPaid:true, final:18000, finalPayer:'TBD', finalPaid:false},
-  {name:'婚攝', deposit:11400, depositPayer:'YUN', depositPaid:true, final:26600, finalPayer:'TBD', finalPaid:false},
-  {name:'婚錄', deposit:10200, depositPayer:'YUN', depositPaid:true, final:23800, finalPayer:'TBD', finalPaid:false},
-  {name:'婚顧＋主持＋樂團＋助理', deposit:20400, depositPayer:'WEI', depositPaid:true, final:47600, finalPayer:'TBD', finalPaid:false},
-  {name:'音響', deposit:0, depositPayer:'TBD', depositPaid:false, final:15000, finalPayer:'TBD', finalPaid:false},
-  {name:'婚紗照＋禮服', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
-  {name:'花藝佈置', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
-  {name:'喜餅', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
-  {name:'喜帖', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
-  {name:'婚禮小物', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
-  {name:'戶政登記', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
-  {name:'客製化書約', deposit:5115, depositPayer:'YUN', depositPaid:true, final:0, finalPayer:'TBD', finalPaid:false},
-  {name:'婚戒', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
-  {name:'婚禮影片', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
-  {name:'蜜月', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
-  {name:'預備金', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false}
+  {group:'婚宴', name:'場地', deposit:46000, depositPayer:'BOSS', depositPaid:true, final:0, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'新秘', deposit:8000, depositPayer:'YUN', depositPaid:true, final:18000, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'婚攝', deposit:11400, depositPayer:'YUN', depositPaid:true, final:26600, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'婚錄', deposit:10200, depositPayer:'YUN', depositPaid:true, final:23800, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'婚顧＋主持＋樂團＋助理', deposit:20400, depositPayer:'WEI', depositPaid:true, final:47600, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'音響', deposit:0, depositPayer:'TBD', depositPaid:false, final:15000, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'婚紗照＋禮服', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'花藝佈置', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'喜餅', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'喜帖', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'婚禮小物', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'婚戒', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'婚禮影片', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {group:'婚宴', name:'預備金', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {group:'登記', name:'戶政登記', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false},
+  {group:'登記', name:'客製化書約', deposit:5115, depositPayer:'YUN', depositPaid:true, final:0, finalPayer:'TBD', finalPaid:false},
+  {group:'蜜月', name:'蜜月', deposit:0, depositPayer:'TBD', depositPaid:false, final:0, finalPayer:'TBD', finalPaid:false}
 ];
 
 const VENDORS = [
@@ -494,14 +583,25 @@ function renderTasks(){
   let sum = 0;
   let checkCounter = 0;
   const groups = ['登記','婚宴','蜜月'];
+  const miniStats = [];
+
   groups.forEach(g=>{
-    const items = TASKS.filter(t=>t.group===g).slice().sort((a,b)=>taskSortValue(a)-taskSortValue(b));
-    if(!items.length) return;
-    const doneInGroup = items.filter(t=>t.status===3).length;
+    const all = TASKS.filter(t=>t.group===g);
+    if(!all.length) return;
+    const pending = all.filter(t=>t.status<3).slice().sort((a,b)=>taskSortValue(a)-taskSortValue(b));
+    const done = all.filter(t=>t.status===3).slice().sort((a,b)=>taskSortValue(a)-taskSortValue(b));
+    const items = pending.concat(done);
+
+    const groupSum = all.reduce((s,t)=>s+WEIGHTS[t.status],0);
+    const groupPct = Math.round(groupSum/all.length);
+    miniStats.push({label:g, pct:groupPct});
+
+    const doneInGroup = done.length;
     const header = document.createElement('div');
     header.className = 'task-group-title';
-    header.innerHTML = `${g} <span class="tag">${doneInGroup}/${items.length}</span>`;
+    header.innerHTML = `${g} <span class="tag">${doneInGroup}/${all.length}</span>`;
     list.appendChild(header);
+
     items.forEach(t=>{
       sum += WEIGHTS[t.status];
       const div = document.createElement('div');
@@ -517,22 +617,28 @@ function renderTasks(){
           <div>
             <div class="ticket-name">${t.name}</div>
             ${dateLine}
+            ${t.actual?`<div class="ticket-meta">實際完成日：${t.actual}</div>`:''}
           </div>
           <span class="status-pill status-${t.status}">${checkMark}${STATUS_LABEL[t.status]}</span>
         </div>
-        <div class="progress-track"><div class="progress-fill" style="width:${WEIGHTS[t.status]}%"></div></div>
-        ${t.actual?`<div class="ticket-meta">實際完成日：${t.actual}</div>`:''}
       `;
       list.appendChild(div);
     });
   });
+
   const overallPct = TASKS.length ? Math.round(sum/TASKS.length) : 0;
   animateCount(document.getElementById('overallBig'), overallPct, 3000, '%');
   animateWidth(document.getElementById('overallFill'), overallPct, 3000);
   const doneCount = TASKS.filter(t=>t.status===3).length;
   document.getElementById('overallCap').textContent = `${doneCount} / ${TASKS.length} 項已完成`;
   animateCount(document.getElementById('progressPct'), overallPct, 3000, '%');
+
+  document.getElementById('categoryMiniGrid').innerHTML = miniStats.map(m=>
+    `<div class="category-mini"><span class="pct">${m.pct}%</span><span class="lbl">${m.label}</span></div>`
+  ).join('');
 }
+
+const CHART_COLORS = ['#4FADA3','#8FBFC4','#C9A15C','#D9A5B3','#9BBF8C','#7A93C9','#C48B9F','#B98D8D','#8AA6A3','#E4B7A0','#A3C9A8','#C9B6A5'];
 
 function renderExpenses(){
   const list = document.getElementById('expenseList');
@@ -540,44 +646,84 @@ function renderExpenses(){
   let total=0, paid=0;
   const payers = ['YUN','WEI','BOSS','AMY'];
   const byPayer = {}; payers.forEach(p=>byPayer[p]=0);
+  const groups = ['登記','婚宴','蜜月'];
 
-  EXPENSES.forEach(ex=>{
-    const t = (ex.deposit||0)+(ex.final||0);
-    total += t;
-    if(ex.depositPaid) paid += (ex.deposit||0);
-    if(ex.finalPaid) paid += (ex.final||0);
-    if(byPayer[ex.depositPayer]!==undefined) byPayer[ex.depositPayer]+=(ex.deposit||0);
-    if(byPayer[ex.finalPayer]!==undefined) byPayer[ex.finalPayer]+=(ex.final||0);
+  const badge = (p)=> p==='TBD' ? `<span class="payer-badge payer-TBD">待定</span>` : `<span class="payer-badge payer-${p}">${p}</span>`;
 
-    const badge = (p)=> p==='TBD' ? `<span class="payer-badge payer-TBD">待定</span>` : `<span class="payer-badge payer-${p}">${p}</span>`;
+  groups.forEach(g=>{
+    const items = EXPENSES.filter(ex=>ex.group===g);
+    if(!items.length) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'expense-group';
+    const rowsHtml = items.map(ex=>{
+      const t = (ex.deposit||0)+(ex.final||0);
+      total += t;
+      if(ex.depositPaid) paid += (ex.deposit||0);
+      if(ex.finalPaid) paid += (ex.final||0);
+      if(byPayer[ex.depositPayer]!==undefined) byPayer[ex.depositPayer]+=(ex.deposit||0);
+      if(byPayer[ex.finalPayer]!==undefined) byPayer[ex.finalPayer]+=(ex.final||0);
 
-    let rows = '';
-    if(ex.deposit>0){
-      rows += `<div class="money-line">訂金 <b>NT$${fmt(ex.deposit)}</b> ${badge(ex.depositPayer)}<span class="paid-tag ${ex.depositPaid?'paid-yes':'paid-no'}">${ex.depositPaid?'已付':'未付'}</span></div>`;
-    }
-    if(ex.final>0){
-      rows += `<div class="money-line">尾款 <b>NT$${fmt(ex.final)}</b> ${badge(ex.finalPayer)}<span class="paid-tag ${ex.finalPaid?'paid-yes':'paid-no'}">${ex.finalPaid?'已付':'婚禮當天'}</span></div>`;
-    }
-    if(ex.deposit===0 && ex.final===0){
-      rows = `<div class="money-line">尚未提供金額</div>`;
-    }
-
-    const div = document.createElement('div');
-    div.className = 'exp-item';
-    div.innerHTML = `
-      <div class="exp-head">
-        <span class="name">${ex.name}</span>
-        <span class="total">NT$${fmt(t)}</span>
-      </div>
-      ${rows}
-    `;
-    list.appendChild(div);
+      const noLabel = (ex.name==='客製化書約' || ex.name==='音響');
+      let detail = '';
+      if(ex.deposit>0){
+        detail += `<span>${noLabel?'':'訂金 '}NT$${fmt(ex.deposit)}</span>${badge(ex.depositPayer)}<span class="paid-tag ${ex.depositPaid?'paid-yes':'paid-no'}">${ex.depositPaid?'已付':'未付'}</span>`;
+      }
+      if(ex.final>0){
+        detail += `<span>${noLabel?'':'尾款 '}NT$${fmt(ex.final)}</span>${badge(ex.finalPayer)}<span class="paid-tag ${ex.finalPaid?'paid-yes':'paid-no'}">${ex.finalPaid?'已付':'婚禮當天'}</span>`;
+      }
+      if(ex.deposit===0 && ex.final===0){
+        detail = `<span>尚未提供金額</span>`;
+      }
+      return `
+        <div class="expense-row">
+          <div class="expense-row-top"><span class="name">${ex.name}</span><span class="total">NT$${fmt(t)}</span></div>
+          <div class="expense-row-detail">${detail}</div>
+        </div>
+      `;
+    }).join('');
+    wrap.innerHTML = `<div class="expense-group-title">${g}</div><div class="expense-rows">${rowsHtml}</div>`;
+    list.appendChild(wrap);
   });
 
   document.getElementById('expTotal').textContent = 'NT$'+fmt(total);
   document.getElementById('expPaid').textContent = 'NT$'+fmt(paid);
   document.getElementById('budgetLeft').textContent = ((800000-total)/10000).toFixed(1);
-  document.getElementById('payerStatGrid').innerHTML = payers.map(p=>`<div class="stat-card"><span class="v">NT$${fmt(byPayer[p])}</span><span class="l">${p} 支出</span></div>`).join('');
+  document.getElementById('payerStatGrid').innerHTML = payers.map(p=>`<div class="payer-chip chip-${p}"><span class="pname">${p}</span><span class="pamount">${fmt(byPayer[p])}</span></div>`).join('');
+
+  renderExpenseChart(total);
+}
+
+function renderExpenseChart(total){
+  const arc = document.getElementById('gaugeArc');
+  const legend = document.getElementById('donutLegend');
+  document.getElementById('gaugeTotal').textContent = 'NT$'+fmt(total);
+
+  const priced = EXPENSES
+    .map(ex=>({name:ex.name, amount:(ex.deposit||0)+(ex.final||0)}))
+    .filter(x=>x.amount>0)
+    .sort((a,b)=>b.amount-a.amount);
+
+  if(!priced.length || total<=0){
+    arc.style.background = 'var(--line)';
+    legend.innerHTML = '<div class="empty-hint">尚無已填金額的項目可供分析</div>';
+    return;
+  }
+
+  let acc = 0;
+  const stops = priced.map((item,i)=>{
+    const start = (acc/total)*180;
+    acc += item.amount;
+    const end = (acc/total)*180;
+    const color = CHART_COLORS[i % CHART_COLORS.length];
+    return `${color} ${start}deg ${end}deg`;
+  });
+  arc.style.background = `conic-gradient(from -90deg, ${stops.join(',')})`;
+
+  legend.innerHTML = priced.map((item,i)=>{
+    const pct = ((item.amount/total)*100).toFixed(1);
+    const color = CHART_COLORS[i % CHART_COLORS.length];
+    return `<div class="legend-item"><span class="legend-swatch" style="background:${color}"></span><span class="legend-name">${item.name}</span><span class="legend-pct">${pct}%</span></div>`;
+  }).join('');
 }
 
 function renderVendors(){
@@ -591,10 +737,9 @@ function renderVendors(){
     const div = document.createElement('div');
     div.className = 'vendor-card';
     div.innerHTML = `
-      <span class="vendor-cat">${v.cat}</span>
       <div class="vendor-name">${v.name}</div>
       <ul class="vendor-list">${v.items.map(i=>`<li>${i}</li>`).join('')}</ul>
-      ${v.ig?`<a class="vendor-ig" href="${v.ig}" target="_blank" rel="noopener">📷 Instagram</a>`:''}
+      ${v.ig?`<a class="vendor-ig" href="${v.ig}" target="_blank" rel="noopener">Instagram</a>`:''}
     `;
     list.appendChild(div);
   });
