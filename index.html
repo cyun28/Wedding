@@ -436,7 +436,7 @@ const WEIGHTS = [0,50,80,100];
 
 const TASKS = [
   {group:'登記', name:'戶政登記', start:'2026年10月', end:'2026年10月', status:0, actual:''},
-  {group:'登記', name:'客製化書約', start:'', end:'', status:0, actual:''},
+  {group:'登記', name:'客製化書約', start:'', end:'', status:3, actual:'2026/7/12'},
 
   {group:'婚宴', name:'場地簽約（星輝廳）', start:'2026年6月', end:'2026年7月', status:3, actual:'2026/5/24'},
   {group:'婚宴', name:'婚顧簽約', start:'2026年8月', end:'2026年9月', status:3, actual:'2026/6/16'},
@@ -457,7 +457,7 @@ const TASKS = [
   {group:'婚宴', name:'婚禮影片製作', start:'2027年3月', end:'2027年4月', status:0, actual:''},
   {group:'婚宴', name:'場地最終確認會議', start:'2027年5月', end:'2027年5月', status:0, actual:''},
 
-  {group:'蜜月', name:'蜜月規劃', start:'2026年12月', end:'2027年1月', status:0, actual:''}
+  {group:'蜜月', name:'蜜月規劃', start:'', end:'', status:1, actual:'', note:'目前搜尋中，預計8/16前付訂金'}
 ];
 
 const EXPENSES = [
@@ -624,6 +624,7 @@ function renderTasks(){
             <div class="ticket-name">${t.name}</div>
             ${dateLine}
             ${t.actual?`<div class="ticket-meta">實際完成日：${t.actual}</div>`:''}
+            ${t.note?`<div class="ticket-meta">${t.note}</div>`:''}
           </div>
           <span class="status-pill status-${t.status}">${checkMark}${STATUS_LABEL[t.status]}</span>
         </div>
